@@ -17,26 +17,27 @@
     eksctl create cluster --name=eksdemo \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
-		      --version=1.21 \
-                      --without-nodegroup 
+		      --version 1.21 \
+		      --without-nodegroup 
 					  
 # Step6: Add Iam-Oidc-Providers:
     eksctl utils associate-iam-oidc-provider \
         --region us-east-1 \
         --cluster eksdemo \
+	--version 1.21 \
 	--approve
 					  
 # Step7: Create node-group:
     eksctl create nodegroup --cluster=eksdemo \
                        --region=us-east-1 \
                        --name=eksdemo-ng-public \
-                       --node-type=t2.large \
+                       --node-type=t2.small \
                        --nodes=2 \
                        --nodes-min=2 \
                        --nodes-max=4 \
                        --node-volume-size=10 \
                        --ssh-access \
-                       --ssh-public-key=ekscluster \
+                       --ssh-public-key=awsdevops \
                        --managed \
                        --asg-access \
                        --external-dns-access \
